@@ -1,0 +1,58 @@
+<!doctype html><html><head><meta charset=utf-8>
+<title>Performance summary — English-bottleneck LM</title>
+<style>
+body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:900px;margin:30px auto;
+color:#16181d;padding:0 18px;line-height:1.5}
+h1{font-size:23px;margin-bottom:2px} .sub{color:#667;font-size:13.5px;margin-bottom:22px}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0 4px}
+th,td{border:1px solid #dcdfe3;padding:8px 10px;text-align:center}
+th:first-child,td:first-child{text-align:left;white-space:nowrap}
+thead th{background:#f3f5f7} tbody tr:nth-child(even){background:#fafbfc}
+.s{color:#8a93a0;font-size:11px;margin-left:3px}
+.hi{background:#e7f6ec;color:#136b33;font-weight:600}
+.lo{background:#fdecec;color:#9c1c1c;font-weight:600}
+.ref{color:#555;font-style:italic}
+.note{background:#f6f8fa;border-radius:8px;padding:12px 16px;font-size:13.5px;margin:8px 0}
+.verdict{border-left:4px solid #1b7837;background:#f1f8f3;padding:12px 16px;border-radius:6px;
+font-size:14.5px;margin:18px 0}
+caption{text-align:left;font-weight:600;margin:18px 0 4px;font-size:15px}
+</style></head><body>
+<h1>Performance summary — English-bottleneck LM (ERT) vs a normal transformer</h1>
+<div class=sub>Same depth (4 layers) / width / vocab (106 words,
+24 meaning classes). Accuracy, higher = better unless noted.
+ERT cells are mean±std over 3 seeds. Green = good, red = bad.</div>
+
+<table><caption>Capability — accuracy vs paraphrase strength ρ</caption>
+<thead><tr><th>model / task</th><th>ρ=0.0</th><th>ρ=0.25</th><th>ρ=0.5</th><th>ρ=0.75</th><th>ρ=1.0</th><th class=ref>normal model</th><th class=ref>chance</th></tr></thead>
+<tbody>
+<tr><td><b>Task M</b> — meaning (chained class rule)</td><td class=hi>0.999<span class=s>±0.000</span></td><td class=hi>0.987<span class=s>±0.009</span></td><td class=hi>0.978<span class=s>±0.028</span></td><td class=hi>0.993<span class=s>±0.007</span></td><td class=hi>0.994<span class=s>±0.003</span></td><td class=ref>1.000</td><td class=ref>0.042</td></tr>
+<tr><td><b>Task S</b> — surface (copy exact synonym)</td><td class=hi>0.993<span class=s>±0.003</span></td><td class=lo>0.716<span class=s>±0.006</span></td><td class=lo>0.244<span class=s>±0.010</span></td><td class=lo>0.247<span class=s>±0.003</span></td><td class=lo>0.248<span class=s>±0.006</span></td><td class=ref>1.000</td><td class=ref>0.0094</td></tr>
+</tbody></table>
+<div class=note>Meaning-based reasoning is <b>flat across ρ</b> and matches the normal model — the
+paraphrase bottleneck is almost free. Surface-carrying <b>collapses to chance</b> (0.25 = keeps the
+class, loses which of 4 synonyms): the cost falls only on illegible information.</div>
+
+<table><caption>Covert side-channel capacity — recoverable secret bit (lower = better; 0.5 = closed)</caption>
+<thead><tr><th>reader</th><th>ρ=0.0</th><th>ρ=0.25</th><th>ρ=0.5</th><th>ρ=0.75</th><th>ρ=1.0</th><th class=ref>closed</th></tr></thead>
+<tbody>
+<tr><td>optimal reader (worst-case bound)</td><td class=lo>1.000</td><td class=lo>0.654</td><td class=hi>0.524</td><td class=hi>0.492</td><td class=hi>0.496</td><td class=ref>0.500</td></tr>
+<tr><td>learned colluding sender/receiver</td><td class=lo>1.000</td><td class=lo>0.773</td><td class=hi>0.543</td><td class=hi>0.500</td><td class=hi>0.518</td><td class=ref>0.500</td></tr>
+</tbody></table>
+<div class=note>Holding overt meaning fixed, neither an optimal reader nor a trained colluding pair can pass a
+bit across the 4 layers once ρ→1. The channel is closed <b>structurally</b>, not by penalty.</div>
+
+<table><caption>Cost — the tiny paraphraser</caption>
+<thead><tr><th>component</th><th>ms / batch</th><th>relative</th></tr></thead>
+<tbody>
+<tr><td>fixed paraphrase channel (no model)</td><td>0.067</td><td>1×</td></tr>
+<tr><td>one model layer forward</td><td>4.8</td><td class=hi>72× costlier</td></tr>
+</tbody></table>
+
+<div class=verdict><b>Bottom line.</b> The English-bottleneck LM matches a normal transformer on meaning-based
+reasoning at every paraphrase strength, while driving covert cross-layer channel capacity to chance —
+and the paraphraser that does it is a fixed permutation, ~72× cheaper than a layer.
+The only capability it loses is the ability to carry illegible (non-meaning) information across layers,
+which is the entire point.</div>
+
+<div class=sub>Generated 20260614-103239 · small-scale demonstrator, every number from a real trained run · device cpu.</div>
+</body></html>

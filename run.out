@@ -1,0 +1,137 @@
+device=cpu  steps=1800  quick=False
+
+================================================================
+E1  Capability: baseline vs ERT(rho)  on Task M and Task S
+================================================================
+[baseline] Task M ...
+    M step    0  loss 3.238
+    M step  300  loss 0.001
+    M step  600  loss 0.000
+    M step  900  loss 0.000
+    M step 1200  loss 0.000
+    M step 1500  loss 0.000
+[baseline] Task S ...
+    S step    0  loss 4.727
+    S step  300  loss 0.003
+    S step  600  loss 0.001
+    S step  900  loss 0.001
+    S step 1200  loss 0.000
+    S step 1500  loss 0.000
+  baseline  M=1.000  S=1.000
+[ERT rho=0.0] Task M ...
+    M step    0  loss 3.229
+    M step  300  loss 0.031
+    M step  600  loss 0.008
+    M step  900  loss 0.001
+    M step 1200  loss 0.004
+    M step 1500  loss 0.011
+[ERT rho=0.0] Task S ...
+    S step    0  loss 4.817
+    S step  300  loss 0.141
+    S step  600  loss 0.035
+    S step  900  loss 0.005
+    S step 1200  loss 0.015
+    S step 1500  loss 0.001
+  ERT rho=0.0  M=0.935  S=1.000
+[ERT rho=0.25] Task M ...
+    M step    0  loss 3.228
+    M step  300  loss 0.022
+    M step  600  loss 0.000
+    M step  900  loss 0.032
+    M step 1200  loss 0.164
+    M step 1500  loss 0.444
+[ERT rho=0.25] Task S ...
+    S step    0  loss 4.823
+    S step  300  loss 0.460
+    S step  600  loss 0.399
+    S step  900  loss 0.405
+    S step 1200  loss 0.402
+    S step 1500  loss 0.377
+  ERT rho=0.25  M=0.676  S=0.729
+[ERT rho=0.5] Task M ...
+    M step    0  loss 3.220
+    M step  300  loss 0.032
+    M step  600  loss 0.011
+    M step  900  loss 0.114
+    M step 1200  loss 0.001
+    M step 1500  loss 0.000
+[ERT rho=0.5] Task S ...
+    S step    0  loss 4.779
+    S step  300  loss 0.977
+    S step  600  loss 0.927
+    S step  900  loss 0.985
+    S step 1200  loss 0.912
+    S step 1500  loss 0.916
+  ERT rho=0.5  M=0.999  S=0.257
+[ERT rho=0.75] Task M ...
+    M step    0  loss 3.213
+    M step  300  loss 0.002
+    M step  600  loss 0.001
+    M step  900  loss 0.002
+    M step 1200  loss 0.098
+    M step 1500  loss 0.001
+[ERT rho=0.75] Task S ...
+    S step    0  loss 4.849
+    S step  300  loss 1.092
+    S step  600  loss 1.057
+    S step  900  loss 1.074
+    S step 1200  loss 1.063
+    S step 1500  loss 1.072
+  ERT rho=0.75  M=0.923  S=0.257
+[ERT rho=1.0] Task M ...
+    M step    0  loss 3.225
+    M step  300  loss 0.027
+    M step  600  loss 0.005
+    M step  900  loss 0.028
+    M step 1200  loss 0.058
+    M step 1500  loss 0.004
+[ERT rho=1.0] Task S ...
+    S step    0  loss 4.839
+    S step  300  loss 1.395
+    S step  600  loss 1.160
+    S step  900  loss 0.996
+    S step 1200  loss 0.791
+    S step 1500  loss 0.737
+  ERT rho=1.0  M=0.996  S=0.247
+
+================================================================
+E2  Covert side-channel capacity through the stack vs rho
+================================================================
+  rho=0.0  optimal-reader=1.000  learned-collusion=1.000
+  rho=0.25  optimal-reader=0.654  learned-collusion=0.773
+  rho=0.5  optimal-reader=0.524  learned-collusion=0.543
+  rho=0.75  optimal-reader=0.492  learned-collusion=0.500
+  rho=1.0  optimal-reader=0.496  learned-collusion=0.518
+
+================================================================
+E3  Legibility: the residual stream as English (ERT rho=1.0)
+================================================================
+  in: sluggish <pad> <pad> <pad>
+     L0: mighty mighty mighty mighty
+     L1: lousy lousy lousy lousy
+     L2: modern modern modern modern
+     L3: heated heated heated heated
+  in: swift <pad> <pad> <pad>
+     L0: dumb dumb dumb dumb
+     L1: huge big huge big
+     L2: sad sad sad sad
+     L3: grimy grimy grimy grimy
+  in: gleaming <pad> <pad> <pad>
+     L0: cheerful cheerful cheerful cheerful
+     L1: pristine pristine pristine pristine
+     L2: small small small small
+     L3: wise wise wise wise
+  in: smart <pad> <pad> <pad>
+     L0: old old old old
+     L1: icy icy icy icy
+     L2: gleaming gleaming gleaming gleaming
+     L3: cheerful cheerful cheerful cheerful
+
+================================================================
+E4  Paraphraser cost: fixed channel vs a model forward
+================================================================
+  fixed paraphrase: 0.067 ms/batch   model fwd: 4.81 ms/batch   (model is 72x costlier)
+
+================================================================
+DONE in 304s  ->  results.json
+================================================================

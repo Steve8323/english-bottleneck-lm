@@ -1,0 +1,4 @@
+      chain: baseline=1.000  ERT(rho=0)=0.999  ERT(rho=1)=0.998  tax=+0.002
+     varhop: baseline=1.000  ERT(rho=0)=0.441  ERT(rho=1)=0.462  tax=+0.538
+ ruleselect: baseline=1.000  ERT(rho=0)=0.843  ERT(rho=1)=0.612  tax=+0.388
+wrote benchmarks.json

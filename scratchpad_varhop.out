@@ -1,0 +1,6 @@
+              baseline: 1.000
+    ert_noscratch_rho0: 0.421
+    ert_noscratch_rho1: 0.397
+      ert_scratch_rho0: 0.355
+      ert_scratch_rho1: 0.327
+wrote scratchpad_varhop.json
